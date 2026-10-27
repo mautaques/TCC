@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="EPUCK_PROX" Comment="E-puck sensors reading">
+ <Identification Standard="61499-2" Classification="SIFB" ApplicationDomain="Robotics" Function="Sensor" Type="SIFB" Description="PROX0..PROX7 gross values">
+ </Identification>
+ <VersionInfo Organization="GASR/UDESC" Version="1.0" Author="Mauricio Martins Taques Filho" Date="2026-10-22" Remarks="Initial version">
+ </VersionInfo>
+ <InterfaceList>
+  <EventInputs>
+   <Event Name="REQ" Type="Event" Comment="Request a input">
+   </Event>
+  </EventInputs>
+  <EventOutputs>
+   <Event Name="CNF" Type="Event" Comment="Input ready">
+    <With Var="PROX0"/>
+    <With Var="PROX1"/>
+    <With Var="PROX2"/>
+    <With Var="PROX3"/>
+    <With Var="PROX4"/>
+    <With Var="PROX5"/>
+    <With Var="PROX6"/>
+    <With Var="PROX7"/>
+   </Event>
+  </EventOutputs>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+   <VarDeclaration Name="PROX0" Type="INT" Comment="Upper right sensor"/>
+   <VarDeclaration Name="PROX1" Type="INT" Comment="Right/Front sensor"/>
+   <VarDeclaration Name="PROX2" Type="INT" Comment="Right sensor"/>
+   <VarDeclaration Name="PROX3" Type="INT" Comment="Right/Back sensor"/>
+   <VarDeclaration Name="PROX4" Type="INT" Comment="Left/Back sensor"/>
+   <VarDeclaration Name="PROX5" Type="INT" Comment="Left sensor"/>
+   <VarDeclaration Name="PROX6" Type="INT" Comment="Left/Front sensor"/>
+   <VarDeclaration Name="PROX7" Type="INT" Comment="Upper left sensor"/>
+  </OutputVars>
+ </InterfaceList>
+ <Service RightInterface="RESOURCE" LeftInterface="APPLICATION" Comment="">
+  <ServiceSequence Name="Read" Comment="">
+   <ServiceTransaction>
+    <InputPrimitive Interface="APPLICATION" Event="REQ" Parameters=""/>
+    <OutputPrimitive Interface="APPLICATION" Event="CNF" Parameters="PROX0,PROX1,PROX2,PROX3,PROX4,PROX5,PROX6,PROX7"/>
+   </ServiceTransaction>
+  </ServiceSequence>
+ </Service>
+</FBType>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="OBSTACLE_AVOID" Comment="E-puck obstacle avoidance fb">
+ <Identification Standard="61499-2" Classification="Basic" ApplicationDomain="Robotics" Function="Navigation" Type="Basic" Description="E-puck obstacle avoidance FB">
+ </Identification>
+ <VersionInfo Organization="GASR/UDESC" Version="1.0" Author="Mauricio Martins Taques Filho" Date="2026-10-22" Remarks="Initial version">
+ </VersionInfo>
+ <InterfaceList>
+  <EventInputs>
+   <Event Name="REQ" Type="Event" Comment="Pace determiner">
+    <With Var="PROX0"/>
+    <With Var="PROX1"/>
+    <With Var="PROX6"/>
+    <With Var="PROX7"/>
+    <With Var="SPEED"/>
+    <With Var="THRESHOLD"/>
+   </Event>
+  </EventInputs>
+  <EventOutputs>
+   <Event Name="CNF" Type="Event" Comment="Determined pace">
+    <With Var="LEFT"/>
+    <With Var="RIGHT"/>
+   </Event>
+  </EventOutputs>
+  <InputVars>
+   <VarDeclaration Name="PROX0" Type="INT" Comment="Upper right sensor"/>
+   <VarDeclaration Name="PROX1" Type="INT" Comment="Right/front sensor"/>
+   <VarDeclaration Name="PROX6" Type="INT" Comment="Left/front sensor"/>
+   <VarDeclaration Name="PROX7" Type="INT" Comment="Upper left sensor"/>
+   <VarDeclaration Name="SPEED" Type="INT" InitialValue="500" Comment="Robot speed in steps"/>
+   <VarDeclaration Name="THRESHOLD" Type="INT" InitialValue="1000" Comment="Limit sensor value"/>
+  </InputVars>
+  <OutputVars>
+   <VarDeclaration Name="LEFT_VAL" Type="INT" Comment="Left wheel pace"/>
+   <VarDeclaration Name="RIGHT_VAL" Type="INT" Comment="Right wheel pace"/>
+  </OutputVars>
+ </InterfaceList>
+ <BasicFB>
+  <ECC>
+   <ECState Comment="Initial State" Name="START" x="550.0" y="100.0"/>
+   <ECState Comment="" Name="CALC" x="550.0" y="400.0">
+    <ECAction Algorithm="AVOID" Output="CNF"/>
+   </ECState>
+   <ECTransition Comment="" Condition="REQ" Destination="CALC" Source="START" x="700.0" y="250.0"/>
+   <ECTransition Comment="" Condition="1" Destination="START" Source="CALC" x="400.0" y="250.0"/>
+  </ECC>
+  <Algorithm Name="AVOID" Comment="Moves to the side opposite the obstacle">
+   <ST Text="ALGORITHM AVOID
+IF PROX0 + PROX1 > THRESHOLD THEN
+    LEFT_VAL := -SPEED / 2;
+    RIGHT_VAL := SPEED / 2;
+ELSIF PROX6 + PROX7 > THRESHOLD THEN
+    LEFT_VAL := SPEED / 2;
+    RIGHT_VAL := -SPEED / 2;
+ELSE
+    LEFT_VAL := SPEED;
+    RIGHT_VAL := SPEED;
+END_IF;
+END_ALGORITHM"/>
+  </Algorithm>
+ </BasicFB>
+</FBType>

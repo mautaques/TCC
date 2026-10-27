@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<System Name="epuck_functionblocks" Comment="">
+	<Identification Standard="61499-2" Classification="Application" ApplicationDomain="Robotics" Function="Simulation" Type="Application" Description="Function blocks network for the epuck1 robot routine" />
+	<VersionInfo Organization="GASR/UDESC" Version="1.0" Author="Mauricio Martins Taques Filho" Date="2026-10-22" Remarks="Initial version" />
+	<Application Name="epuck_functionblocksApp" Comment="">
+		<SubAppNetwork>
+			<FB Name="E_CYCLE" Type="E_CYCLE" Comment="" x="3800" y="-200">
+				<Parameter Name="DT" Value="T#100ms" />
+			</FB>
+			<FB Name="E_RESTART" Type="E_RESTART" Comment="" x="1400" y="-200" />
+			<FB Name="EPUCK_PROX" Type="EPUCK_PROX" Comment="" x="5000" y="-200" />
+			<FB Name="EPUCK_MOTORS" Type="EPUCK_MOTORS" Comment="" x="7900" y="-200" />
+			<FB Name="EPUCK_INIT" Type="EPUCK_INIT" Comment="" x="2500" y="-200" />
+			<FB Name="OBSTACLE_AVOID" Type="OBSTACLE_AVOID" Comment="" x="6400" y="-200" />
+			<EventConnections>
+				<Connection Source="E_RESTART.COLD" Destination="EPUCK_INIT.INIT" Comment="" />
+				<Connection Source="EPUCK_INIT.INITO" Destination="E_CYCLE.START" Comment="" />
+				<Connection Source="E_CYCLE.EO" Destination="EPUCK_PROX.REQ" Comment="" />
+				<Connection Source="OBSTACLE_AVOID.CNF" Destination="EPUCK_MOTORS.REQ" Comment="" />
+				<Connection Source="EPUCK_PROX.CNF" Destination="OBSTACLE_AVOID.REQ" Comment="" />
+			</EventConnections>
+			<DataConnections>
+				<Connection Source="EPUCK_PROX.PROX0" Destination="OBSTACLE_AVOID.PROX0" Comment="" />
+				<Connection Source="EPUCK_PROX.PROX1" Destination="OBSTACLE_AVOID.PROX1" Comment="" />
+				<Connection Source="EPUCK_PROX.PROX6" Destination="OBSTACLE_AVOID.PROX6" Comment="" />
+				<Connection Source="EPUCK_PROX.PROX7" Destination="OBSTACLE_AVOID.PROX7" Comment="" />
+			</DataConnections>
+		</SubAppNetwork>
+	</Application>
+</System>

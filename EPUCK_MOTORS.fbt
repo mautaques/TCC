@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="EPUCK_MOTORS" Comment="E-puck wheels speed determiner">
+ <Identification Standard="61499-2" Classification="SIFB" ApplicationDomain="Robotics" Function="Actuator" Type="SIFB" Description="LEFT and RIGHT paces(-1000 to 1000)">
+ </Identification>
+ <VersionInfo Organization="GASR/UDESC" Version="1.0" Author="Mauricio Martins Taques Filho" Date="2026-10-22" Remarks="Initial version">
+ </VersionInfo>
+ <InterfaceList>
+  <EventInputs>
+   <Event Name="REQ" Type="Event" Comment="Speed values">
+    <With Var="LEFT_VAL"/>
+    <With Var="RIGHT_VAL"/>
+   </Event>
+  </EventInputs>
+  <EventOutputs>
+   <Event Name="CNF" Type="Event" Comment="Set speeds">
+   </Event>
+  </EventOutputs>
+  <InputVars>
+   <VarDeclaration Name="LEFT_VAL" Type="INT" InitialValue="0" Comment="Left wheel paces"/>
+   <VarDeclaration Name="RIGHT_VAL" Type="INT" InitialValue="0" Comment="Right wheel paces"/>
+  </InputVars>
+  <OutputVars>
+  </OutputVars>
+ </InterfaceList>
+ <Service RightInterface="RESOURCE" LeftInterface="APPLICATION" Comment="">
+  <ServiceSequence Name="move_epuck" Comment="">
+   <ServiceTransaction>
+    <InputPrimitive Interface="APPLICATION" Event="REQ" Parameters="LEFT,RIGHT"/>
+    <OutputPrimitive Interface="APPLICATION" Event="CNF" Parameters=""/>
+   </ServiceTransaction>
+  </ServiceSequence>
+ </Service>
+</FBType>

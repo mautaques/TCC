@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="EPUCK_INIT" Comment="E-puck initialization">
+ <Identification Standard="61499-2" Classification="SIFB" ApplicationDomain="Robotics" Function="Robot initialization" Type="SIFB" Description="Initialize e-puck1 motors and sensors">
+ </Identification>
+ <VersionInfo Organization="GASR/UDESC" Version="1.0" Author="Mauricio Martins Taques Filho" Date="2026-10-22" Remarks="Initial version">
+ </VersionInfo>
+ <InterfaceList>
+  <EventInputs>
+   <Event Name="INIT" Type="Event" Comment="Robot initialization">
+   </Event>
+  </EventInputs>
+  <EventOutputs>
+   <Event Name="INITO" Type="Event" Comment="Robot ready">
+   </Event>
+  </EventOutputs>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+  </OutputVars>
+ </InterfaceList>
+ <Service RightInterface="RESOURCE" LeftInterface="APPLICATION" Comment="">
+  <ServiceSequence Name="Initialization" Comment="">
+   <ServiceTransaction>
+    <InputPrimitive Interface="APPLICATION" Event="INIT" Parameters=""/>
+    <OutputPrimitive Interface="APPLICATION" Event="INITO" Parameters=""/>
+   </ServiceTransaction>
+  </ServiceSequence>
+ </Service>
+</FBType>
