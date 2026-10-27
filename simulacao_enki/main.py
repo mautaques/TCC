@@ -1,4 +1,4 @@
-import enki
+import pyenki
 
 def main:
   pass
